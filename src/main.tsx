@@ -1,9 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
+import { TodoProvider } from './hooks/useTodo'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>
+	<React.StrictMode>
+		<TodoProvider>
+			<App />
+		</TodoProvider>
+	</React.StrictMode>
 )

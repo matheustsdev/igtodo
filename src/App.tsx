@@ -7,6 +7,7 @@ import { AddTodoInput } from './components/AddTodoInput'
 import { NoTodo } from './components/NoTodo'
 import { useEffect, useMemo, useState } from 'react'
 import { ErrorToast } from './components/ErrorToast'
+import { useTodo } from './hooks/useTodo'
 
 const mockedTodos: ToDoProps[] = [
 	{
@@ -34,71 +35,30 @@ const mockedTodos: ToDoProps[] = [
 // const todos: ToDoProps[] = []
 
 function App() {
-	const [todos, setTodos] = useState<ToDoProps[]>(mockedTodos)
+	const { todos, handleCreateTodo, handleDeleteTodo, handleToggleCheck } =
+		useTodo()
 	const [concludedTodos, setConcludedTodos] = useState<number>(0)
 	const [error, setError] = useState('')
 
 	const toastDuration = 3000
 
+	const haveTodoToRender = todos !== undefined
+
 	function handleAddTodo(name: string) {
 		if (name !== '') {
-			let id = ''
-
-			if (todos.length <= 0) {
-				id = '1'
-			} else {
-				id = `${Number(todos[todos.length - 1].id) + 1}`
-			}
-
-			const newTodo: ToDoProps = {
-				id,
-				name,
-				isChecked: false,
-			}
-
-			setTodos([newTodo, ...todos])
+			handleCreateTodo(name)
 		} else {
 			setError('Please insert a name of todo.')
 		}
 	}
 
-	function handleDeleteTodo(id: string) {
-		const newTodos = todos
+	// useEffect(() => {
+	// 	const count = todos.reduce((acc, todo) => {
+	// 		return todo.isChecked ? acc + 1 : acc
+	// 	}, 0)
 
-		const index = newTodos.findIndex((todo) => {
-			return todo.id === id
-		})
-
-		if (index !== -1) {
-			newTodos.splice(index, 1)
-			setTodos([...newTodos])
-		}
-	}
-
-	function handleToggleTodoValue(id: string) {
-		const updatedTodos = todos.map((todo) => {
-			if (todo.id === id) {
-				const updatedTodo: ToDoProps = {
-					id: todo.id,
-					name: todo.name,
-					isChecked: !todo.isChecked,
-				}
-				return updatedTodo
-			}
-
-			return todo
-		})
-
-		setTodos([...updatedTodos])
-	}
-
-	useEffect(() => {
-		const count = todos.reduce((acc, todo) => {
-			return todo.isChecked ? acc + 1 : acc
-		}, 0)
-
-		setConcludedTodos(count)
-	}, [todos])
+	// 	setConcludedTodos(count)
+	// }, [todos])
 
 	useEffect(() => {
 		if (error !== '') {
@@ -114,11 +74,8 @@ function App() {
 				<Header />
 				<div className={styles.todoList}>
 					<AddTodoInput onAddTodo={handleAddTodo} />
-					<Summary
-						totalOfConcludeds={concludedTodos}
-						total={todos.length}
-					/>
-					{todos.length <= 0 ? (
+					<Summary totalOfConcludeds={concludedTodos} total={0} />
+					{!haveTodoToRender ? (
 						<NoTodo />
 					) : (
 						todos.map((todo) => {
@@ -126,8 +83,12 @@ function App() {
 								<Todo
 									todo={todo}
 									key={todo.id}
-									onDeleteTodo={handleDeleteTodo}
-									onToggleTodoValue={handleToggleTodoValue}
+									onDeleteTodo={() => {
+										handleDeleteTodo(todo.id)
+									}}
+									onToggleTodoValue={() => {
+										handleToggleCheck(todo.id)
+									}}
 								/>
 							)
 						})
