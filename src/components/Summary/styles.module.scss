@@ -1,0 +1,43 @@
+.summary {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	margin-bottom: 1.5rem;
+
+	font-size: 0.875rem;
+	font-weight: 700;
+
+	div {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+
+	.total {
+		color: var(--blue);
+
+		span {
+			font-size: 0.75rem;
+			color: var(--gray-200);
+
+			padding: 0.125rem 0.5rem;
+			border-radius: calc(0.75rem + 0.5rem);
+			background: var(--gray-400);
+		}
+	}
+
+	.concluded {
+		color: var(--purple);
+
+		span {
+			font-size: 0.75rem;
+			color: var(--gray-200);
+
+			padding: 0.125rem 0.5rem;
+			border-radius: calc(0.75rem + 0.5rem);
+			background: var(--gray-400);
+		}
+	}
+}

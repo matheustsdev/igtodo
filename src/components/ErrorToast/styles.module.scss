@@ -1,0 +1,67 @@
+@keyframes rightEnter {
+	0% {
+		right: -450px;
+	}
+
+	100% {
+		right: 25px;
+	}
+}
+
+@keyframes rightLeave {
+	0% {
+		right: 25px;
+	}
+
+	100% {
+		right: -450px;
+	}
+}
+
+.toast {
+	position: absolute;
+	bottom: 3rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	background: var(--gray-200);
+	border-radius: 8px;
+
+	font-family: 'Inter', sans-serif;
+
+	div {
+		display: flex;
+		align-items: center;
+		justify-content: left;
+		gap: 0.5rem;
+
+		background: var(--danger);
+		width: 100%;
+		padding: 0.25rem 0.5rem;
+
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+
+		font-weight: 700;
+		color: var(--gray-700);
+	}
+
+	p {
+		padding: 0.25rem 2.5rem 1rem 0.5rem;
+		font-size: 0.875rem;
+		max-width: 400px;
+		min-height: 75px;
+		min-width: 250px;
+	}
+}
+
+.rightEnterAnimation {
+	animation: rightEnter 0.2s linear forwards;
+}
+
+.rightLeaveAnimation {
+	animation: rightLeave 0.2s linear forwards;
+}

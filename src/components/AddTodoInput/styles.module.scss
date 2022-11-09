@@ -1,0 +1,45 @@
+.addTodoContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+
+	width: 100%;
+
+	margin-bottom: 4rem;
+	margin-top: -2rem;
+
+	input {
+		width: 100%;
+		padding: 1rem;
+		background: var(--gray-500);
+
+		border: 1px solid var(--gray-700);
+		border-radius: 8px;
+
+		font-size: 1rem;
+		color: var(--gray-300);
+	}
+
+	button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5rem;
+
+		padding: 1rem;
+		border-radius: 8px;
+		background: var(--dark-blue);
+
+		border: none;
+
+		color: var(--gray-100);
+		font-size: 1rem;
+
+		transition: background-color 0.1s;
+
+		&:hover {
+			background: var(--blue);
+		}
+	}
+}
